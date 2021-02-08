@@ -110,6 +110,15 @@ class SMHiggsBuilder:
                 self.textToSpline(rooName, os.path.join(self.coupPath, fileFor['hgg' if what.startswith('hgg') else 'hzg']), ycol=column )
             scalingName = 'Scaling_'+what
 #            print 'Building '+scalingName
+#            rooExpr = 'expr::%(scalingName)s(\
+#"( (@0*@0)*@4 + (@1*@1)*@5 + (@2*@2)*@6 + (@0*@1)*@7 + (@0*@2)*@8 + (@1*@2)*@9 + (@3*@3)*@10 + (@0*@3)*@11 + (@1*@3)*@12 + (@2*@3)*@13 + (@14*@14)*0.1611 ) / (@4+@5+@6+@7+@8+@9+@10+@11+@12+@13)",\
+# %(Ctop)s, %(Cb)s, %(CW)s, %(Ctau)s,\
+# %(prefix)sGamma_tt, %(prefix)sGamma_bb, %(prefix)sGamma_WW,\
+# %(prefix)sGamma_tb, %(prefix)sGamma_tW, %(prefix)sGamma_bW,\
+# %(prefix)sGamma_ll,\
+# %(prefix)sGamma_tl, %(prefix)sGamma_bl, %(prefix)sGamma_lW,\
+# kappa_ttilde\
+#)'%locals() # kttilde does not go in the denom, because kttilde(SM)=0
             rooExpr = 'expr::%(scalingName)s(\
 "( (@0*@0)*@4 + (@1*@1)*@5 + (@2*@2)*@6 + (@0*@1)*@7 + (@0*@2)*@8 + (@1*@2)*@9 + (@3*@3)*@10 + (@0*@3)*@11 + (@1*@3)*@12 + (@2*@3)*@13 ) / (@4+@5+@6+@7+@8+@9+@10+@11+@12+@13)",\
  %(Ctop)s, %(Cb)s, %(CW)s, %(Ctau)s,\
