@@ -1235,12 +1235,13 @@ class KappaVKappaTKappaTTilde(LHCHCGBaseModel):
     """
     Loops are not resolved!
     """
-    def __init__(self,resolved=True,BRU=True,addInvisible=False,coupleTopTau=False):
+    def __init__(self,resolved=True,BRU=True,addInvisible=False,coupleTopTau=False, doFCPPOI=False):
         LHCHCGBaseModel.__init__(self) # not using 'super(x,self).__init__' since I don't understand it
         self.doBRU = BRU
         self.resolved = resolved
         self.addInvisible = addInvisible
         self.coupleTopTau = coupleTopTau
+        self.doFCPPOI=doFCPPOI
         if self.addInvisible: 
             raise RuntimeError("This is not supported")
 
@@ -1254,8 +1255,16 @@ class KappaVKappaTKappaTTilde(LHCHCGBaseModel):
         """Create POI out of signal strength and MH"""
         self.modelBuilder.doVar("r[1,0.0,10.0]")
         self.modelBuilder.doVar("kappa_V[1,0.0,2.0]")
-        self.modelBuilder.doVar("kappa_t[1,-10.0,10.0]")
-        self.modelBuilder.doVar("kappa_ttilde[1,-10.0,10.0]")
+        if self.doFCPPOI:
+            self.modelBuilder.doVar("mu_ttH[1,0.0,10.0]")
+            self.modelBuilder.doVar("fcp[1,-1.0,1.0]")
+            pois='mu_ttH,fcp,'
+            self.modelBuilder.factory_("expr::kappa_t(\"sqrt(@0*@0*(1-abs(@1)))\",mu_ttH,fcp)")
+            self.modelBuilder.factory_("expr::kappa_ttilde(\"sqrt(abs(@1)*@0*@0)\",mu_ttH,fcp)")
+        else:
+            self.modelBuilder.doVar("kappa_t[1,-10.0,10.0]")
+            self.modelBuilder.doVar("kappa_ttilde[1,-10.0,10.0]")
+            pois='kappa_t,kappa_ttilde,'
         self.modelBuilder.doVar("kappa_mu[1,0.0,5.0]")
         if not self.coupleTopTau:
             self.modelBuilder.doVar("kappa_tau[1,0.0,3.0]")
@@ -1272,12 +1281,12 @@ class KappaVKappaTKappaTTilde(LHCHCGBaseModel):
             self.modelBuilder.doVar("kappa_gam[1,0.0,2.5]")
 
 
-        pois = 'kappa_V,kappa_t,kappa_b,kappa_c'
+        pois += 'kappa_V,kappa_b,kappa_c'
         if not self.coupleTopTau:
             pois += ',kappa_tau'
         if not self.resolved:
             pois += ',kappa_g,kappa_gam'
-        pois+=',kappa_ttilde'
+
         self.doMH()
         self.modelBuilder.doSet("POI",pois)
         self.SMH = SMHiggsBuilder(self.modelBuilder)
@@ -1423,4 +1432,5 @@ K4 = KappaVKappaT(resolved=True)
 K5 = KappaVKappaT(resolved=False)
 K6 = KappaVKappaT(resolved=False, coupleTopTau=True)
 K7 = KappaVKappaT(resolved=True, coupleTopTau=True)
-CP=KappaVKappaTKappaTTilde(resolved=True,BRU=True,addInvisible=False,coupleTopTau=True)
+CP=KappaVKappaTKappaTTilde(resolved=False,BRU=True,addInvisible=False,coupleTopTau=True)
+CP_fcp=KappaVKappaTKappaTTilde(resolved=False,BRU=True,addInvisible=False,coupleTopTau=True,doFCPPOI=True)
