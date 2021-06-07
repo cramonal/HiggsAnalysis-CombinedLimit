@@ -1340,7 +1340,7 @@ class KappaVKappaTKappaTTilde(LHCHCGBaseModel):
         if not self.coupleTopB:
             self.modelBuilder.factory_('expr::c7_BRscal_hbb("@0*@0*@2/@1", kappa_b, c7_Gscal_tot, HiggsDecayWidth_UncertaintyScaling_hbb)')
         else:
-            self.modelBuilder.factory_('expr::c7_BRscal_htt("(@0*@0+1.1075*@1*@1-0.0055890*@0*@1)*@3/@2", kappa_t, kappa_ttilde, c7_Gscal_tot, HiggsDecayWidth_UncertaintyScaling_hbb)')
+            self.modelBuilder.factory_('expr::c7_BRscal_hbb("(@0*@0+1.1075*@1*@1-0.0055890*@0*@1)*@3/@2", kappa_t, kappa_ttilde, c7_Gscal_tot, HiggsDecayWidth_UncertaintyScaling_hbb)')
 
         self.modelBuilder.factory_('expr::c7_BRscal_hmm("@0*@0*@2/@1", kappa_mu_expr, c7_Gscal_tot, HiggsDecayWidth_UncertaintyScaling_hmm)')
         self.modelBuilder.factory_('expr::c7_BRscal_hcc("@0*@0*@2/@1", kappa_c, c7_Gscal_tot, HiggsDecayWidth_UncertaintyScaling_hcc)')
