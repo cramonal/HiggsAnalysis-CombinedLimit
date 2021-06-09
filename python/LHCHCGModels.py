@@ -1432,5 +1432,7 @@ K4 = KappaVKappaT(resolved=True)
 K5 = KappaVKappaT(resolved=False)
 K6 = KappaVKappaT(resolved=False, coupleTopTau=True)
 K7 = KappaVKappaT(resolved=True, coupleTopTau=True)
+CP_BTau_independent=KappaVKappaTKappaTTilde(resolved=False,BRU=True,addInvisible=False,coupleTopTau=False,coupleTopB=False)                   #b and tau to be fixed
+CP_fcp_BTau_independent=KappaVKappaTKappaTTilde(resolved=False,BRU=True,addInvisible=False,coupleTopTau=False,coupleTopB=False,doFCPPOI=True) #b and tau to be fixed
 CP=KappaVKappaTKappaTTilde(resolved=False,BRU=True,addInvisible=False,coupleTopTau=True,coupleTopB=True)
 CP_fcp=KappaVKappaTKappaTTilde(resolved=False,BRU=True,addInvisible=False,coupleTopTau=True,coupleTopB=True,doFCPPOI=True)
