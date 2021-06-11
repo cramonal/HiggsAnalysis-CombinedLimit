@@ -1293,8 +1293,8 @@ class KappaVKappaTKappaTTilde(LHCHCGBaseModel):
             self.SMH.makeScaling('ggH', Cb='kappa_t', Ctop='kappa_t', Cc="kappa_t")
             self.SMH.makeScaling('hgluglu', Cb='kappa_t', Ctop='kappa_t')
             if not self.coupleTopTau:
-                self.SMH.makeScaling('hgg', Cb='kappa_t', Ctop='kappa_t', CW='kappa_V', Ctau='kappa_tau')
-                self.SMH.makeScaling('hzg', Cb='kappa_t', Ctop='kappa_t', CW='kappa_V', Ctau='kappa_tau')
+                self.SMH.makeScaling('hgg', Cb='kappa_b', Ctop='kappa_t', CW='kappa_V', Ctau='kappa_tau')
+                self.SMH.makeScaling('hzg', Cb='kappa_b', Ctop='kappa_t', CW='kappa_V', Ctau='kappa_tau')
             else:
                 self.SMH.makeScaling('hgg', Cb='kappa_t', Ctop='kappa_t', CW='kappa_V', Ctau='kappa_t')
                 self.SMH.makeScaling('hzg', Cb='kappa_t', Ctop='kappa_t', CW='kappa_V', Ctau='kappa_t')
