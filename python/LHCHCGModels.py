@@ -1390,7 +1390,9 @@ class KappaVKappaTKappaTTilde(LHCHCGBaseModel):
             elif production == "ZH" or production in ["ZH_%s"%x for x in ['Had','Lep']]:  XSscal = ("@0*@0", "kappa_V")
             #elif production == "WH":  XSscal = ("@0*@0", "kappa_V")
             #elif production == "ZH":  XSscal = ("@0*@0", "kappa_V")
-            elif production in ["bbH","BBH"]: XSscal = ("@0*@0", "kappa_b")
+            elif production in ["bbH","BBH"]: 
+                 if not self.coupleTopB: XSscal = ("@0*@0", "kappa_b")
+                 else: XSscal = ("@0*@0", "kappa_t")
             else: raise RuntimeError, "Production %s not supported" % production
             BRscal = decay
             if not self.modelBuilder.out.function("c7_BRscal_"+BRscal):
@@ -1401,7 +1403,10 @@ class KappaVKappaTKappaTTilde(LHCHCGBaseModel):
             elif production == "ggH" and (decay in self.add_bbH) and energy in ["7TeV","8TeV","13TeV","14TeV"]:
                 b2g = "CMS_R_bbH_ggH_%s_%s[%g]" % (decay, energy, 0.01)
                 b2gs = "CMS_bbH_scaler_%s" % energy
-                self.modelBuilder.factory_('expr::%s("(%s + @1*@1*@2*@3)*@4", %s, kappa_b, %s, %s, c7_BRscal_%s)' % (name, XSscal[0], XSscal[1], b2g, b2gs, BRscal))
+                if not self.coupleTopB:
+                   self.modelBuilder.factory_('expr::%s("(%s + @1*@1*@2*@3)*@4", %s, kappa_b, %s, %s, c7_BRscal_%s)' % (name, XSscal[0], XSscal[1], b2g, b2gs, BRscal))
+                else: 
+                   self.modelBuilder.factory_('expr::%s("(%s + @1*@1*@2*@3)*@4", %s, kappa_t, %s, %s, c7_BRscal_%s)' % (name, XSscal[0], XSscal[1], b2g, b2gs, BRscal))
             else:
                 self.modelBuilder.factory_('expr::%s("%s*@1*@2", %s, c7_BRscal_%s,r)' % (name, XSscal[0], XSscal[1], BRscal))
             print '[LHC-HCG Kappas]', name, production, decay, energy,": ",
