@@ -1356,7 +1356,7 @@ class KappaVKappaTKappaTTilde(LHCHCGBaseModel):
             return self.getHiggsSignalYieldScale('_'.join(process.split("_")[:-1]), process.split("_")[-1], '13TeV') # energy hardcoded, but it doesnt matter since this is just the rescaling, the energy info is in the input
         elif process in ['%s_%d' %(x,y) for x in ['tth_125','tth_ALT_125','thw_125','thq_125']  for y in [2016,2017,2018]] and ("TTHHadronicTag" in bin or "TTHLeptonicTag" in bin):
             return self.getHiggsSignalYieldScale(process, 'hgg', '13TeV') # energy hardcoded, but it doesnt matter since this is just the rescaling, the energy info is in the input
-        elif process in ['TTH','TTH_ALT','tqH','VBF','ggH','BBH',"WH_Had","ZH_Had","WH_Lep","ZH_Lep"] "ttH_hgg_hzz_ch2" in bin: 
+        elif process in ['TTH','TTH_ALT','tqH','VBF','ggH','BBH',"WH_Had","ZH_Had","WH_Lep","ZH_Lep"] and "ttH_hgg_hzz_ch2" in bin: 
             return self.getHiggsSignalYieldScale(process, 'hzz', '13TeV') # energy hardcoded, but it doesnt matter since this is just the rescaling, the energy info is in the input
         elif process in ["ggH_ALT","VBF_ALT","ggH_Mix","VBF_Mix"]:
             return 0
